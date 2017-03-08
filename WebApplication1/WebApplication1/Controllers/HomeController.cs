@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication1.Models;
+using WebApplication1.Models.ViewModels;
 
 namespace WebApplication1.Controllers
 {
@@ -10,7 +12,11 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var items = new ItemListViewModels();
+            items.Add(new Item() { Type = "支出", Value = 300, Created = new DateTime(2016, 1, 1), Note = "" });
+            items.Add(new Item() { Type = "支出", Value = 16000, Created = new DateTime(2016, 1, 2), Note = "" });
+            items.Add(new Item() { Type = "支出", Value = 8000, Created = new DateTime(2016, 1, 3), Note = "" });
+            return View(items);
         }
 
         public ActionResult About()

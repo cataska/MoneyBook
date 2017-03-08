@@ -1,4 +1,6 @@
-﻿<div class="row">
+﻿@model WebApplication1.Models.ViewModels.ItemListViewModels
+
+<div class="row">
     <div class="col-md-12">
         <table class="table table-bordered table-hover">
             <tr>
@@ -7,24 +9,16 @@
                 <th>日期</th>
                 <th>金額</th>
             </tr>
-            <tr>
-                <td>1</td>
-                <td>支出</td>
-                <td>2016-01-01</td>
-                <td>300</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>支出</td>
-                <td>2016-01-02</td>
-                <td>1,600</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>支出</td>
-                <td>2016-01-03</td>
-                <td>8,00</td>
-            </tr>
+            @*From: http://disq.us/p/cd29oj*@
+            @foreach (var item in Model.Items.Select((value, i) => new {i, value}))
+            {
+                <tr>
+                    <td>@(item.i + 1)</td>
+                    <td>@item.value.Type</td>
+                    <td>@item.value.Created.ToString("yyyy-MM-dd")</td>
+                    <td>@item.value.Value.ToString("##,###")</td>
+                </tr>
+            }
         </table>
     </div>
 </div>
