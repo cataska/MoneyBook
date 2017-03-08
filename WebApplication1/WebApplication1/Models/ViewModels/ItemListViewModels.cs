@@ -19,9 +19,6 @@ namespace WebApplication1.Models.ViewModels
             this._items.Add(item);
         }
 
-        public List<Item> Items
-        {
-            get { return this._items; }
-        }
+        public List<Item> Items => this._items;
     }
 }
