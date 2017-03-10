@@ -1,4 +1,4 @@
-﻿@model WebApplication1.Models.ViewModels.ItemListViewModels
+﻿@model IEnumerable<WebApplication1.Models.ViewModels.AccountViewModel>
 
 <div class="row">
     <div class="col-md-12">
@@ -10,7 +10,7 @@
                 <th>金額</th>
             </tr>
             @* From: http://disq.us/p/cd29oj *@
-            @foreach (var item in Model.Items.Select((value, i) => new {i, value}))
+            @foreach (var item in Model.Select((value, i) => new {i, value}))
             {
                 <tr>
                     <td>@(item.i + 1)</td>
