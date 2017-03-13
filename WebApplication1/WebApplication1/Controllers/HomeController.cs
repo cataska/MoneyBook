@@ -14,15 +14,13 @@ namespace WebApplication1.Controllers
 
         public ActionResult Index()
         {
-            //var models = new List<AccountViewModel>();
-            List<AccountViewModel> models =
-                db.AccountBook.Select(c => new AccountViewModel()
-                {
-                    Value = c.Amounttt,
-                    Created = c.Dateee,
-                    Note = c.Remarkkk,
-                    Type = c.Categoryyy == 0 ? "支出" : "收入"
-                }).ToList();
+            var models = db.AccountBook.Select(c => new AccountViewModel()
+            {
+                Value = c.Amounttt,
+                Created = c.Dateee,
+                Note = c.Remarkkk,
+                Type = c.Categoryyy == 0 ? "支出" : "收入"
+            }).ToList();
 
             return View(models);
         }
