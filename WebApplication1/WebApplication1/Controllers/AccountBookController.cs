@@ -5,25 +5,18 @@ using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models;
 using WebApplication1.Models.ViewModels;
+using WebApplication1.Services;
 
 namespace WebApplication1.Controllers
 {
     public class AccountBookController : Controller
     {
-        private SkillTreeHomeworkEntities db = new SkillTreeHomeworkEntities();
+        private AccountService _service = new AccountService();
 
         // GET: AccountBook
         public ActionResult Index()
         {
-            var models = db.AccountBook.Select(c => new AccountViewModel()
-            {
-                Value = c.Amounttt,
-                Created = c.Dateee,
-                Note = c.Remarkkk,
-                Type = c.Categoryyy == 0 ? "支出" : "收入"
-            }).ToList();
-
-            return View(models);
+            return View(_service.Lookup());
         }
     }
 }
