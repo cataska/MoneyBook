@@ -4,26 +4,39 @@ using System.Linq;
 using System.Web;
 using WebApplication1.Models;
 using WebApplication1.Models.ViewModels;
+using WebApplication1.Repositories;
 
 namespace WebApplication1.Services
 {
     public class AccountService : IService<AccountViewModel>
     {
-        private SkillTreeHomeworkEntities db = new SkillTreeHomeworkEntities();
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly Repository<AccountBook> _accountBookRep;
+
+        public AccountService(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+            _accountBookRep = new Repository<AccountBook>(unitOfWork);
+        }
 
         public void Add(AccountViewModel viewModel)
         {
-            db.AccountBook.Add(new AccountBook()
+            Add(new AccountBook()
             {
                 Id = Guid.NewGuid(),
-                Amounttt = (int) viewModel.Value,
+                Amounttt = (int)viewModel.Value,
                 Categoryyy = TypeToInt(viewModel.Type),
                 Dateee = viewModel.Created,
                 Remarkkk = viewModel.Note
             });
         }
 
-        private int TypeToInt(string type)
+        public void Add(AccountBook accountBook)
+        {
+            _accountBookRep.Create(accountBook);           
+        }
+
+        private static int TypeToInt(string type)
         {
             return type == "支出" ? 0 : 1;
         }
@@ -40,24 +53,37 @@ namespace WebApplication1.Services
 
         public AccountViewModel GetSingle(Guid id)
         {
-            throw new NotImplementedException();
+            var accountBook = _accountBookRep.GetSingle(c => c.Id == id);
+            return new AccountViewModel()
+            {
+                Value = accountBook.Amounttt,
+                Created = accountBook.Dateee,
+                Note = accountBook.Remarkkk,
+                Type = IntToType(accountBook.Categoryyy)
+            };
+        }
+
+        private static string IntToType(int n)
+        {
+            return n == 0 ? "支出" : "收入";
         }
 
         public IEnumerable<AccountViewModel> Lookup()
         {
-            var query = db.AccountBook.Select(c => new AccountViewModel()
+            var source = _accountBookRep.LookupAll();
+            var result = source.Select(c => new AccountViewModel()
             {
                 Value = c.Amounttt,
                 Created = c.Dateee,
                 Note = c.Remarkkk,
                 Type = c.Categoryyy == 0 ? "支出" : "收入"
-            });
-            return query.Any() == false ? new List<AccountViewModel>() : query.ToList();
+            }).ToList();
+            return result;
         }
 
         public void Save()
         {
-            db.SaveChanges();
+            _unitOfWork.Save();
         }
     }
 }
