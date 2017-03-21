@@ -68,7 +68,7 @@ namespace WebApplication1.Services
             return n == 0 ? "支出" : "收入";
         }
 
-        public IEnumerable<AccountViewModel> Lookup()
+        public IQueryable<AccountViewModel> Lookup()
         {
             var source = _accountBookRep.LookupAll();
             var result = source.Select(c => new AccountViewModel()
@@ -77,7 +77,7 @@ namespace WebApplication1.Services
                 Created = c.Dateee,
                 Note = c.Remarkkk,
                 Type = c.Categoryyy == 0 ? "支出" : "收入"
-            }).ToList();
+            });
             return result;
         }
 
