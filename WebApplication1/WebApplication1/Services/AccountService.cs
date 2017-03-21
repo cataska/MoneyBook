@@ -25,7 +25,7 @@ namespace WebApplication1.Services
             {
                 Id = Guid.NewGuid(),
                 Amounttt = (int)viewModel.Value,
-                Categoryyy = TypeToInt(viewModel.Type),
+                Categoryyy = (int) viewModel.Category,
                 Dateee = viewModel.Created,
                 Remarkkk = viewModel.Note
             });
@@ -34,11 +34,6 @@ namespace WebApplication1.Services
         public void Add(AccountBook accountBook)
         {
             _accountBookRep.Create(accountBook);           
-        }
-
-        private static int TypeToInt(string type)
-        {
-            return type == "支出" ? 0 : 1;
         }
 
         public void Delete(AccountViewModel viewModel)
@@ -59,13 +54,8 @@ namespace WebApplication1.Services
                 Value = accountBook.Amounttt,
                 Created = accountBook.Dateee,
                 Note = accountBook.Remarkkk,
-                Type = IntToType(accountBook.Categoryyy)
+                Category = (CategoryEnum) accountBook.Categoryyy
             };
-        }
-
-        private static string IntToType(int n)
-        {
-            return n == 0 ? "支出" : "收入";
         }
 
         public IQueryable<AccountViewModel> Lookup()
@@ -76,7 +66,7 @@ namespace WebApplication1.Services
                 Value = c.Amounttt,
                 Created = c.Dateee,
                 Note = c.Remarkkk,
-                Type = c.Categoryyy == 0 ? "支出" : "收入"
+                Category = (CategoryEnum) c.Categoryyy
             });
             return result;
         }
