@@ -22,7 +22,12 @@ namespace WebApplication1.Controllers
         // GET: AccountBook
         public ActionResult Index()
         {
-            return View(_service.Lookup());
+            return View();
+        }
+
+        public ActionResult List()
+        {
+            return View("_AccountBookList", _service.Lookup());
         }
     }
 }
