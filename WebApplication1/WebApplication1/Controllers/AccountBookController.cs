@@ -19,10 +19,22 @@ namespace WebApplication1.Controllers
             var unitOfWork = new EFUnitOfWork();
             _service = new AccountService(unitOfWork);
         }
+
         // GET: AccountBook
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(AccountViewModel model)
+        {
+            if (ModelState.IsValid == false)
+                return View(model);
+
+            _service.Add(model);
+            _service.Save();
+            return RedirectToAction("Index", "AccountBook");
         }
 
         public ActionResult List()
