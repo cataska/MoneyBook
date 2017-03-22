@@ -1,4 +1,17 @@
-﻿@model IEnumerable<WebApplication1.Models.ViewModels.AccountViewModel>
+﻿@using WebApplication1.Models.ViewModels
+@model IEnumerable<WebApplication1.Models.ViewModels.AccountViewModel>
+
+@helper CategoryTableDataWithColor(CategoryEnum category)
+{
+    if (category == CategoryEnum.收入)
+    {
+        <td class="income">@category</td>
+    }
+    else
+    {
+        <td class="expense">@category</td>
+    }
+}
 
 <div class="row">
     <div class="col-md-12">
@@ -14,7 +27,7 @@
             {
                 <tr>
                     <td>@(item.i + 1)</td>
-                    <td>@item.value.Category</td>
+                    @CategoryTableDataWithColor(item.value.Category)
                     <td>@item.value.Created.ToString("yyyy-MM-dd")</td>
                     <td>@item.value.Value.ToString("##,###")</td>
                 </tr>
