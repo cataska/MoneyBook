@@ -206,6 +206,7 @@
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Validations\ValidCreatedDate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\SkillTreeHomework.mdf" />
