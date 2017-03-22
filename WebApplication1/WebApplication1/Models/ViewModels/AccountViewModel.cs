@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using WebApplication1.Validations;
 
 namespace WebApplication1.Models.ViewModels
 {
@@ -23,9 +24,12 @@ namespace WebApplication1.Models.ViewModels
         [Display(Name = "日期")]
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "yyyy-MM-dd", ApplyFormatInEditMode=true)]
+        [ValidCreatedDate(ErrorMessage = "日期不可大於今天")]
         public DateTime Created { get; set; }
 
         [Display(Name = "備註")]
+        [Required]
         [StringLength(100)]
         public string Note { get; set; }
     }
