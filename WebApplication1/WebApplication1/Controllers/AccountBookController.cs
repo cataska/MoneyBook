@@ -27,7 +27,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(AccountViewModel model)
+        public ActionResult Create(AccountViewModel model)
         {
             if (ModelState.IsValid == false)
                 return View(model);

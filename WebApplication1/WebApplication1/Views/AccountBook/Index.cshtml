@@ -5,7 +5,7 @@
 @model WebApplication1.Models.ViewModels.AccountViewModel
 
 <div class="well">
-    @using (Ajax.BeginForm("Index", "AccountBook", new AjaxOptions()
+    @using (Ajax.BeginForm("Create", "AccountBook", new AjaxOptions()
     {
         UpdateTargetId = "ajax",
         HttpMethod = "post"
