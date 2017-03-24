@@ -5,7 +5,11 @@
 @model WebApplication1.Models.ViewModels.AccountViewModel
 
 <div class="well">
-    @using (Html.BeginForm("Index", "AccountBook", FormMethod.Post, new { @class = "form-horizontal" }))
+    @using (Ajax.BeginForm("Index", "AccountBook", new AjaxOptions()
+    {
+        UpdateTargetId = "ajax",
+        HttpMethod = "post"
+    }, new { @class = "form-horizontal" }))
     {
         <div class="form-group">
             @Html.LabelFor(m => m.Category, new { @class = "col-sm-2 control-label" })
@@ -46,7 +50,9 @@
     }
 </div>
 
-@Html.Action("List")
+<div id="ajax">
+    @Html.Action("List")
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
