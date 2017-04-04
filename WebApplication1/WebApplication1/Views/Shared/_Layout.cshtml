@@ -58,5 +58,10 @@
     <script src="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery.datetimepicker.js"></script>
     @RenderSection("scripts", required: false)
+    <script>
+        $(function() {
+            $("[data-datetimepicker]").datetimepicker();
+        })
+    </script>
 </body>
 </html>
