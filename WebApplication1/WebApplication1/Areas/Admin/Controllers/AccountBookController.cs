@@ -12,6 +12,7 @@ namespace WebApplication1.Areas.Admin.Controllers
     public class AccountBookController : Controller
     {
         private readonly AccountService _service;
+        private const string Admin = "admin@test.com";
 
         public AccountBookController()
         {
@@ -22,20 +23,15 @@ namespace WebApplication1.Areas.Admin.Controllers
         // GET: AccountBook
         public ActionResult Index()
         {
+            if (User.Identity.Name != Admin)
+            {
+                return RedirectToAction("Index", "Home", new {area = ""});
+            }
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Create(AccountViewModel model)
-        {
-            if (ModelState.IsValid == false)
-                return View(model);
-
-            _service.Add(model);
-            _service.Save();
-            return RedirectToAction("Index", "AccountBook");
-        }
-
+        [Authorize(Users = Admin)]
+        [ChildActionOnly]
         public ActionResult List()
         {
             return View("_AccountBookList", _service.Lookup());
