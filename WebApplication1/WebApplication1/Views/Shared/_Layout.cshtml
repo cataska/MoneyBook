@@ -36,11 +36,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href=@Url.Action("Index", "AccountBook", new { area = "" })>首頁</a>
+                    <li><a href=@Url.Action("Index", "Home", new { area = "" })>首頁</a>
                     <li><a href="#">關於</a>
                     <li><a href="#">連絡方式</a>
+                    <li><a href=@Url.Action("Index", "AccountBook", new { area = "" })>記賬本</a>
                     <li><a href=@Url.Action("Index", "AccountBook", new { area = "Admin" })>記賬管理</a>
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
