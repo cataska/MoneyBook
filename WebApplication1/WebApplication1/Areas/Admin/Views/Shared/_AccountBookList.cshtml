@@ -1,0 +1,37 @@
+﻿@using WebApplication1.Models.ViewModels
+@model IEnumerable<WebApplication1.Models.ViewModels.AccountViewModel>
+
+@helper CategoryTableDataWithColor(CategoryEnum category)
+{
+    if (category == CategoryEnum.收入)
+    {
+        <td class="income">@category</td>
+    }
+    else
+    {
+        <td class="expense">@category</td>
+    }
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover">
+            <tr>
+                <th>#</th>
+                <th>類別</th>
+                <th>日期</th>
+                <th>金額</th>
+            </tr>
+            @* From: http://disq.us/p/cd29oj *@
+            @foreach (var item in Model.Select((value, i) => new {i, value}))
+            {
+                <tr>
+                    <td>@(item.i + 1)</td>
+                    @CategoryTableDataWithColor(item.value.Category)
+                    <td>@item.value.Created.ToString("yyyy-MM-dd")</td>
+                    <td>@item.value.Value.ToString("##,###")</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
