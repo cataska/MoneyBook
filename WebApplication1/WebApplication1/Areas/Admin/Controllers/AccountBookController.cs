@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.Models.ViewModels;
@@ -25,7 +26,7 @@ namespace WebApplication1.Areas.Admin.Controllers
         {
             if (User.Identity.Name != Admin)
             {
-                return RedirectToAction("Index", "Home", new {area = ""});
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             return View();
         }
@@ -35,6 +36,32 @@ namespace WebApplication1.Areas.Admin.Controllers
         public ActionResult List()
         {
             return View("_AccountBookList", _service.Lookup());
+        }
+
+        [Authorize(Users = Admin)]
+        public ActionResult Delete(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var model = _service.GetSingle(id.Value);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult DeleteConfirm(Guid id)
+        {
+            var model = _service.GetSingle(id);
+            _service.Delete(model);
+            _service.Save();
+            return RedirectToAction("Index", "AccountBook", new { area = "Admin" });
         }
     }
 }

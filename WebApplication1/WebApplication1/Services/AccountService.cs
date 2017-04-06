@@ -38,7 +38,8 @@ namespace WebApplication1.Services
 
         public void Delete(AccountViewModel viewModel)
         {
-            throw new NotImplementedException();
+            var model = _accountBookRep.GetSingle(m => m.Id == viewModel.Id);
+            _accountBookRep.Remove(model);
         }
 
         public void Edit(AccountViewModel oldViewModel, AccountViewModel newViewModel)
@@ -49,20 +50,27 @@ namespace WebApplication1.Services
         public AccountViewModel GetSingle(Guid id)
         {
             var accountBook = _accountBookRep.GetSingle(c => c.Id == id);
+            if (accountBook == null)
+            {
+                return null;
+            }
+
             return new AccountViewModel()
             {
+                Id = accountBook.Id,
                 Value = accountBook.Amounttt,
                 Created = accountBook.Dateee,
                 Note = accountBook.Remarkkk,
                 Category = (CategoryEnum) accountBook.Categoryyy
             };
         }
-
+        
         public IQueryable<AccountViewModel> Lookup()
         {
             var source = _accountBookRep.LookupAll();
             var result = source.Select(c => new AccountViewModel()
             {
+                Id = c.Id,
                 Value = c.Amounttt,
                 Created = c.Dateee,
                 Note = c.Remarkkk,

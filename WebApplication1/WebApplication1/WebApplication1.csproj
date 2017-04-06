@@ -246,6 +246,7 @@
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\AccountBook\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_AccountBookList.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountBook\Delete.cshtml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />

@@ -13,6 +13,8 @@ namespace WebApplication1.Models.ViewModels
 
     public class AccountViewModel
     {
+        public Guid Id { get; set; }
+
         [Display(Name = "類別")]
         public CategoryEnum Category { get; set; }
 
@@ -24,7 +26,7 @@ namespace WebApplication1.Models.ViewModels
         [Display(Name = "日期")]
         [Required]
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "yyyy-MM-dd", ApplyFormatInEditMode=true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode=true)]
         [ValidCreatedDate(ErrorMessage = "日期不可大於今天")]
         public DateTime Created { get; set; }
 

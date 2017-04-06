@@ -30,6 +30,7 @@
                     @CategoryTableDataWithColor(item.value.Category)
                     <td>@item.value.Created.ToString("yyyy-MM-dd")</td>
                     <td>@item.value.Value.ToString("##,###")</td>
+                    <td><a href=@Url.Action("Delete", "AccountBook", new { id = item.value.Id, area = "Admin" })>Delete</a></td>
                 </tr>
             }
         </table>

@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Delete";
+}
+
+@model WebApplication1.Models.ViewModels.AccountViewModel
+
+<h2>你確定要刪除這筆資料嗎？</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(m => m.Category)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.Created)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.Created)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(m => m.Value)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.Value)
+        </dd>
+    </dl>
+    
+    @using (Html.BeginForm())
+    {
+        <div class="form-group">
+            <button type="submit" value="Delete" class="btn btn-danger">送出</button>
+            @Html.ActionLink("返回列表", "Index", new { controller = "AccountBook", area = "Admin"})
+        </div>
+    }
+</div>
